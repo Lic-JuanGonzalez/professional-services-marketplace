@@ -9,6 +9,7 @@ CLAUDE.local.md
 # Env
 .env
 .env.*
+!.env.example
 
 # Build outputs
 target/
