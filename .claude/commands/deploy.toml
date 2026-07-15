@@ -1,0 +1,14 @@
+description = "Deploy to environment (staging/prod). Usage: /deploy staging | /deploy prod"
+prompt = """
+Deploy to {{args}} environment.
+
+Steps:
+1. Run tests: `npm test` — abort if fail
+2. Build: `npm run build` — abort if fail
+3. Check git status — warn if uncommitted changes
+4. Run deploy script: `npm run deploy:{{args}}`
+5. Verify deploy: hit health endpoint and confirm 200
+
+If {{args}} is empty, default to staging.
+If {{args}} is 'prod', ask for confirmation before proceeding.
+"""

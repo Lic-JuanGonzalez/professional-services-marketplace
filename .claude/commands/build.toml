@@ -1,0 +1,19 @@
+description = "Build the project (auto-detects Java/Python). Usage: /build | /build test | /build clean"
+prompt = """
+Build the project.
+
+1. Auto-detect stack:
+   - pom.xml → Maven
+   - build.gradle / build.gradle.kts → Gradle
+   - pyproject.toml → uv
+   - requirements.txt → pip
+
+2. Run appropriate build:
+   - Maven: `mvn package -DskipTests` (or `mvn test` if args contain "test")
+   - Gradle: `./gradlew build` (or `./gradlew clean build` if args contain "clean")
+   - uv: `uv run python -m build` or just `uv sync`
+
+3. Show: exit code, error lines only (not full output unless failed)
+4. On success: update .claude/memory/progress.md — note build passed
+5. On failure: show exact error, identify root cause, suggest fix
+"""

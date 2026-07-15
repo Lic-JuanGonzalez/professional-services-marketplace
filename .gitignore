@@ -1,0 +1,19 @@
+# Claude local memory (personal, not shared)
+.claude/memory/progress.md
+.claude/memory/user.md
+
+# Local settings
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Env
+.env
+.env.*
+
+# Build outputs
+target/
+build/
+dist/
+__pycache__/
+*.pyc
+.venv/

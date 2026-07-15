@@ -1,0 +1,23 @@
+description = "Run tests (auto-detects JUnit/pytest). Usage: /test | /test <pattern>"
+prompt = """
+Run tests for this project.
+
+Auto-detect:
+- pom.xml → `mvn test`
+- build.gradle → `./gradlew test`
+- pyproject.toml → `uv run pytest -v`
+
+If {{args}} provided, filter by pattern:
+- Maven: `mvn test -Dtest={{args}}`
+- Gradle: `./gradlew test --tests "*{{args}}*"`
+- pytest: `uv run pytest -v -k "{{args}}"`
+
+Output:
+- Show passing count and failing count
+- For each failure: test name, assertion error, file:line
+- Do NOT show passing test output unless asked
+
+On completion:
+- Update .claude/memory/progress.md with test result
+- If failures exist: investigate root cause before suggesting fix
+"""

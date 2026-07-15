@@ -1,0 +1,20 @@
+description = "Review current diff for bugs, security issues, and style violations"
+prompt = """
+Review the current git diff.
+
+Check for:
+- Logic bugs and off-by-one errors
+- Security issues (injection, auth bypass, exposed secrets)
+- Missing input validation
+- Violations of .claude/rules/coding-style.md
+- Missing or wrong error handling at system boundaries
+- N+1 queries or obvious performance problems
+
+Output format per finding:
+`path:line: <severity>: <problem>. <fix>.`
+
+Severity: CRITICAL | HIGH | MED | LOW
+
+Skip: formatting nits, style preferences, comments about what code does.
+End with a one-line summary: X critical, Y high, Z other.
+"""

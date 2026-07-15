@@ -1,0 +1,21 @@
+description = "Show or update session memory. Usage: /memory | /memory update | /memory reset"
+prompt = """
+Memory command: {{args}}
+
+No args or "show":
+- Read and display .claude/memory/progress.md
+- Read and display relevant sections of .claude/memory/project.md
+- Summary: what's in progress, what's next, any blockers
+
+"update":
+- Ask: what was just done? what's next? any blockers?
+- Write answers to .claude/memory/progress.md with current timestamp
+
+"reset":
+- Confirm before resetting
+- Clear progress.md to blank template
+- Keep project.md and feedback.md intact
+
+"decisions":
+- Show all entries from .claude/memory/project.md → Architecture decisions section
+"""
