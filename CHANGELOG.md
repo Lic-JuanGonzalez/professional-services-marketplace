@@ -39,3 +39,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Verified
 - Full backend suite: 64/64 tests passing, `mvn compile` clean, on `master` after merging all four feature branches
+
+#### Postman collection (`docs/api/`)
+- `marketplace-api-collection.postman_collection.json` — 46 requests covering Auth, Professionals, Services, Hires, Reviews, with `pm.test` assertions and auto-chaining via `pm.environment.set`
+- `marketplace-environment.postman_environment.json` — companion environment (baseUrl + tokens/ids)
+- Verified end-to-end against the live stack (`docker compose up`) with Newman: 63/63 assertions pass, both on a fresh DB and on a rerun without resetting it
+- Bug found and fixed during that verification: the Services folder's soft-delete test was deactivating the same service offering the Hires folder needed, 404-ing every hire creation and cascading through the rest of the run — fixed by creating a dedicated throwaway service for the delete test
