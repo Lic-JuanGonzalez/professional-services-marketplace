@@ -45,3 +45,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `marketplace-environment.postman_environment.json` — companion environment (baseUrl + tokens/ids)
 - Verified end-to-end against the live stack (`docker compose up`) with Newman: 63/63 assertions pass, both on a fresh DB and on a rerun without resetting it
 - Bug found and fixed during that verification: the Services folder's soft-delete test was deactivating the same service offering the Hires folder needed, 404-ing every hire creation and cascading through the rest of the run — fixed by creating a dedicated throwaway service for the delete test
+
+#### Frontend (`frontend/`)
+- Minimal React + Vite test console — not a product UI, one tab per feature module (Auth, Professionals, Services, Hires, Reviews) mirroring the Postman collection, each action shows the raw request/response
+- JWT session kept in `localStorage` via `AuthContext`; `api.js` attaches `Authorization: Bearer` automatically
+- Verified: `npm run build` clean, `eslint` clean (0 errors), and the exact request the Auth tab makes (`POST /auth/register` from origin `http://localhost:5173`) confirmed end-to-end against the live backend, including CORS preflight
+
+### Fixed
+- `docker-compose.yml`: postgres healthcheck now probes the real database (`pg_isready -d`) instead of the wrong default (a database named after the user), which was spamming `FATAL: database "marketplace_user" does not exist` into the logs every 5s
