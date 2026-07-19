@@ -51,5 +51,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JWT session kept in `localStorage` via `AuthContext`; `api.js` attaches `Authorization: Bearer` automatically
 - Verified: `npm run build` clean, `eslint` clean (0 errors), and the exact request the Auth tab makes (`POST /auth/register` from origin `http://localhost:5173`) confirmed end-to-end against the live backend, including CORS preflight
 
+#### Admin seed + test console gate
+- `V2__seed_admin_user.sql` — Flyway migration seeding one `ADMIN` account (`admin@marketplace.local` / `Admin123!`) since the API refuses self-registration as `ADMIN` by design and the console needed a real way in
+- `frontend/src/test/` — the test console moved behind `/test`, gated by `AdminGate` (login form, only lets in sessions with `role === "ADMIN"`); `/` now routes to the (separate, in-progress) customer-facing app
+- Added `react-router-dom` for the `/` vs `/test` split
+
 ### Fixed
 - `docker-compose.yml`: postgres healthcheck now probes the real database (`pg_isready -d`) instead of the wrong default (a database named after the user), which was spamming `FATAL: database "marketplace_user" does not exist` into the logs every 5s
