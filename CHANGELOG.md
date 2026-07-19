@@ -53,8 +53,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Admin seed + test console gate
 - `V2__seed_admin_user.sql` — Flyway migration seeding one `ADMIN` account (`admin@marketplace.local` / `Admin123!`) since the API refuses self-registration as `ADMIN` by design and the console needed a real way in
-- `frontend/src/test/` — the test console moved behind `/test`, gated by `AdminGate` (login form, only lets in sessions with `role === "ADMIN"`); `/` now routes to the (separate, in-progress) customer-facing app
+- `frontend/src/test/` — the test console moved behind `/test`, gated by `AdminGate` (login form, only lets in sessions with `role === "ADMIN"`)
 - Added `react-router-dom` for the `/` vs `/test` split
+
+#### Customer-facing app (`frontend/src/prod/`)
+- Public browse (`/`): professional cards (headline, category, location, star rating, hourly rate) with a category filter
+- Professional detail (`/professionals/:id`): bio, active services, reviews; inline hire form per service for logged-in clients
+- `/login`, `/register` (role choice CLIENT/PROFESSIONAL), nav bar that adapts to session role
+- Client dashboard (`/hires`): status-badged hires, cancel for PENDING, inline review form for COMPLETED hires without one yet
+- Professional dashboard (`/dashboard`): blocking create-profile form if none exists, then tabs for services (create/edit/soft-delete) and incoming hires (accept/reject/complete)
+- Built by a background subagent in an isolated worktree against the live backend contract; reviewed (code read, `npm run build` + `eslint` re-run on master) and merged in — same pattern as the original 4-module backend build
 
 ### Fixed
 - `docker-compose.yml`: postgres healthcheck now probes the real database (`pg_isready -d`) instead of the wrong default (a database named after the user), which was spamming `FATAL: database "marketplace_user" does not exist` into the logs every 5s
